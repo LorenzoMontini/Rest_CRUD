@@ -1,14 +1,17 @@
 extends layout
 block content
-    img(src=(`/image/${res.Unit}.png`) top center no-repeat;) 
-    h2 Unit: #{res.Unit}
-    h2 Cost: #{res.Cost}
-    h2 Hit_Speed: #{res.Hit_Speed}
-    h2 Speed: #{res.Speed}
-    h2 Deploy_Time: #{res.Deploy_Time}
-    h2 Range: #{res.Range}
-    h2 Target: #{res.Target}
-    h2 Count: #{res.Count}
-    h2 Transport: #{res.Transport}
-    h2 Type: #{res.Type}
-    h2 Rarity: #{res.Rarity}
+    each res in result
+        div.image
+            img(src=(`/image/${res.Unit}.png`) top center no-repeat;) 
+        div.info
+            h2 Unit: #{res.Unit}
+            h2 Cost: #{res.Cost}
+            h2 Hit_Speed: #{res.Hit_Speed}
+            h2 Speed: #{res.Speed}
+            h2 Deploy_Time: #{res.Deploy_Time}
+            h2 Range: #{res.Range}
+            h2 Target: #{res.Target}
+            h2 Count: #{res.Count}
+            h2 Transport: #{res.Transport}
+            h2 Type: #{res.Type}
+            h2 Rarity: #{res.Rarity}

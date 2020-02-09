@@ -1,11 +1,14 @@
+var express = require('express');
+var router = express.Router();
+const sql = require('mssql');
 var createError = require('http-errors');
 var express = require('express');
 var router = express.Router();
 const sql = require('mssql');
 
 const config = {
-  user: 'malizia.fabio',  //Vostro user name
-  password: 'scuola2019*', //Vostra password
+  user: 'montini.lorenzo',  //Vostro user name
+  password: 'xxx123#', //Vostra password
   server: "213.140.22.23\\sqlexpress",  //Stringa di connessione
   database: 'fmClashRoyale', //(Nome del DB)
 }
@@ -26,7 +29,7 @@ let executeQuery = function (res, query, next) {
         sql.close();
         return;
       }
-      res.send(result.recordset); //Il vettore con i dati è nel campo recordset (puoi loggare result per verificare)
+      res.render('troops', {rslt: result.recordset}); //Il vettore con i dati è nel campo recordset (puoi loggare result per verificare)
       sql.close();
     });
 
