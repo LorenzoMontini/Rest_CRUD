@@ -4,7 +4,8 @@ block content
         div.image
             img(src=(`/image/${res.Unit}.png`) top center no-repeat;) 
         div.info
-            h2 Unit: #{res.Unit}
+            a(href=`/users/search/${person.name}`)
+                h2 Unit: #{res.Unit}
             h2 Cost: #{res.Cost}
             h2 Hit_Speed: #{res.Hit_Speed}
             h2 Speed: #{res.Speed}
