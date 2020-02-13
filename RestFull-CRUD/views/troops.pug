@@ -1,10 +1,10 @@
 extends layout
 block content
-    each res in result
+    each res in rslt
         div.image
             img(src=(`/image/${res.Unit}.png`) top center no-repeat;) 
         div.info
-            a(href=`/users/search/${person.name}`)
+            a(href=`/users/search/${res.Unit}`)
                 h2 Unit: #{res.Unit}
             h2 Cost: #{res.Cost}
             h2 Hit_Speed: #{res.Hit_Speed}

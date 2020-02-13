@@ -2,19 +2,16 @@ var express = require('express');
 var router = express.Router();
 const sql = require('mssql');
 var createError = require('http-errors');
-var express = require('express');
-var router = express.Router();
-const sql = require('mssql');
 
 const config = {
   user: 'montini.lorenzo',  //Vostro user name
   password: 'xxx123#', //Vostra password
-  server: "213.140.22.23\\sqlexpress",  //Stringa di connessione
-  database: 'fmClashRoyale', //(Nome del DB)
+  server: "213.140.22.237",  //Stringa di connessione
+  database: 'montini.lorenzo', //(Nome del DB)
 }
 
 //Function to connect to database and execute query
-let executeQuery = function (res, query, next) {
+let executeQuery = function (res, query, next,page) {
   sql.connect(config, function (err) {
     if (err) { //Display error page
       console.log("Error while connecting database :- " + err);
@@ -24,27 +21,41 @@ let executeQuery = function (res, query, next) {
     var request = new sql.Request(); // create Request object
     request.query(query, function (err, result) { //Display error page
       if (err) {
+        console.log(query);
         console.log("Error while querying database :- " + err);
         res.status(500).json({success: false, message:'Error while querying database', error:err});
         sql.close();
         return;
       }
-      res.render('troops', {rslt: result.recordset}); //Il vettore con i dati è nel campo recordset (puoi loggare result per verificare)
-      sql.close();
+      console.log(result.recordset)
+      renderPage(res, page, result.recordset); //Il vettore con i dati è nel campo recordset (puoi loggare result per verificare)
     });
 
   });
 }
 
+
+function renderPage(res, page, data)
+{
+    res.render(page, {rslt:data});
+    sql.close();
+}
+
 /* GET users listing. */
 router.get('/', function (req, res, next) {
+    console.log('elenco unità')
   let sqlQuery = "select * from dbo.[cr-unit-attributes]";
-  executeQuery(res, sqlQuery, next);
+  executeQuery(res, sqlQuery, next, 'troops');
 });
 
 router.get('/search/:name', function (req, res, next) {
+  
   let sqlQuery = `select * from dbo.[cr-unit-attributes] where Unit = '${req.params.name}'`;
-  executeQuery(res, sqlQuery, next);
+  executeQuery(res, sqlQuery, next, 'troops');
+});
+
+router.get('/newunit', function (req, res, next) {
+  res.render('newunit')
 });
 
 router.post('/', function (req, res, next) {
@@ -54,10 +65,10 @@ router.post('/', function (req, res, next) {
     res.status(500).json({success: false, message:'Error while connecting database', error:err});
     return;
   }
-  let sqlInsert = `INSERT INTO dbo.[cr-unit-attributes] (Unit,Cost,Hit_Speed) 
-                     VALUES ('${unit.Unit}','${unit.Cost}','${unit.Hit_Speed}')`;
-  executeQuery(res, sqlInsert, next);
-  res.send({success:true, message: "unità inserita con successo", unit: unit})
+  let sqlInsert = `INSERT INTO dbo.[cr-unit-attributes] (Unit,Cost,Hit_Speed,Speed,Deploy_Time,Range,Target,Count,Transport,Type,Rarity) 
+                     VALUES ('${unit.Unit}','${unit.Cost}','${unit.Hit_Speed}', '${unit.Speed}','${unit.Deploy_Time}','${unit.Range}','${unit.Target}','${unit.Count}','${unit.Transport}','${unit.Type}','${unit.Rarity}')`;
+  
+  executeQuery(res, sqlInsert, next, 'success');
 });
 
 module.exports = router;
