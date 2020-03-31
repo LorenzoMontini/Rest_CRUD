@@ -1,0 +1,67 @@
+<button (click)="getUnitList()">
+  get unit list
+</button>
+<div *ngFor="let unit of data">  <!--per ogni elemento del vettore ripeto il div-->
+  <h1>Unit: {{unit.Unit}} </h1> <br>
+  <h1>Cost: {{unit.Cost}} </h1><br>
+  <h1>Hit speed: {{unit.hit_Speed}}</h1><br>
+  <h1>Speed: {{unit.Speed}}</h1><br>
+  <h1>Deploy_time: {{unit.Hit_Speed}}</h1><br>
+  <h1>Range: {{unit.Range}}</h1><br>
+  <h1>Target: {{unit.Target}}</h1><br>
+  <h1>Count: {{unit.Count}}</h1><br>
+  <h1>Transport: {{unit.Transport}}</h1><br>
+  <h1>Type: {{unit.Type}}</h1><br>
+  <h1>Rarity: {{unit.rarity}}</h1>
+</div>
+
+<form>
+  <h3 >Add a Unit</h3>
+  <div>
+    <label for="Unit">Unit:</label>
+    <input name="Unit" #newUnit>
+  </div>
+  <div>
+    <label for="Cost">Cost:</label>
+    <input name="Cost" #newCost>
+  </div>
+  <div>
+    <label for="Hit_speed">Hit_Speed:</label>
+    <input name="Hit_speed" #newHitSpeed>
+  </div>
+  <div>
+    <label for="Speed">Speed:</label>
+    <input name="Speed" #newSpeed>
+  </div>
+  <div>
+    <label for="Deploy_time">Deploy_time:</label>
+    <input name="Deploy_time" #newDeploy_time>
+  </div>
+  <div>
+    <label for="Range">Range:</label>
+    <input name="Range" #newRange>
+  </div>
+  <div>
+    <label for="Target">Target:</label>
+    <input name="Target" #newTarget>
+  </div>
+  <div>
+    <label for="Count">Count:</label>
+    <input name="Count" #newCount>
+  </div>
+  <div>
+    <label for="Transport">Transport:</label>
+    <input name="Transport" #newTransport>
+  </div>
+  <div>
+    <label for="Type">Type:</label>
+    <input name="Type" #newType>
+  </div>
+  <div>
+    <label for="Rarity">Rarity:</label>
+    <input name="Rarity" #newRarity>
+  </div>
+  <button (click)="addUnit(newUnit, newCost, newHitSpeed, newSpeed, newDeploy_time, newRange, newTarget, newCount, newTransport, newType, newRarity)">
+  Insert new unit
+  </button>
+</form>
